@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Ubuntu'),
       home: Login(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

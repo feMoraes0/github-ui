@@ -64,7 +64,7 @@ class Login extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           "Enter",
-                          style: TextStyle(fontSize: 20.0, color: Colors.white),
+                          style: TextStyle(fontSize: 22.0, color: Colors.white),
                         ),
                       ),
                     ],
