@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   Color mainColor = Color(0xff262626);
   Color secondaryColor = Colors.white;
+  final textController = TextEditingController();
+
+  accessAPI() {
+    var input = textController.text;
+    if(input.isEmpty) {
+      print("empty");
+    } else {
+      Navigator.pushNamed(context, "home");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +60,7 @@ class Login extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       TextField(
+                        controller: this.textController,
                         maxLines: 1,
                         autocorrect: false,
                         cursorColor: this.secondaryColor,
@@ -62,9 +78,12 @@ class Login extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 35.0),
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Enter",
-                          style: TextStyle(fontSize: 22.0, color: Colors.white),
+                        child: GestureDetector(
+                          child: Text(
+                            "Enter",
+                            style: TextStyle(fontSize: 22.0, color: Colors.white),
+                          ),
+                          onTap: () { return this.accessAPI(); },
                         ),
                       ),
                     ],
