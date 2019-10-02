@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class Login extends StatefulWidget {
   @override
@@ -9,12 +10,20 @@ class _LoginState extends State<Login> {
   Color mainColor = Color(0xff262626);
   Color secondaryColor = Colors.white;
   final textController = TextEditingController();
+  bool loading = false;
 
-  accessAPI() {
+  void accessAPI() async {
     var input = textController.text;
-    if(input.isEmpty) {
+    if (input.isEmpty) {
       print("empty");
     } else {
+      this.setState(() {
+        this.loading = true;
+      });
+      await Future.delayed(Duration(seconds: 5));
+      this.setState(() {
+        this.loading = false;
+      });
       Navigator.pushNamed(context, "home");
     }
   }
@@ -22,6 +31,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         color: this.secondaryColor,
@@ -83,7 +93,9 @@ class _LoginState extends State<Login> {
                             "Enter",
                             style: TextStyle(fontSize: 22.0, color: Colors.white),
                           ),
-                          onTap: () { return this.accessAPI(); },
+                          onTap: () {
+                            return this.accessAPI();
+                          },
                         ),
                       ),
                     ],
@@ -91,6 +103,32 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
+            (this.loading)
+                ? Container(
+                    width: size.width,
+                    height: size.height,
+                    color: Color.fromRGBO(0, 0, 0, 0.7),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(
+                            "Searching...",
+                            style: TextStyle(
+                              fontSize: 25.0,
+                              color: this.secondaryColor,
+                            ),
+                          ),
+                        ),
+                        CircularProgressIndicator(
+                          valueColor: new AlwaysStoppedAnimation<Color>(this.secondaryColor),
+                        )
+                      ],
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),
