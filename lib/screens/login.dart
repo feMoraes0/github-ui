@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:http/http.dart' as http;
+import '../models/User.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -7,6 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
   Color mainColor = Color(0xff262626);
   Color secondaryColor = Colors.white;
   final textController = TextEditingController();
@@ -14,17 +20,16 @@ class _LoginState extends State<Login> {
 
   void accessAPI() async {
     var input = textController.text;
-    if (input.isEmpty) {
-      print("empty");
-    } else {
+    if (input.isNotEmpty) {
       this.setState(() {
         this.loading = true;
       });
-      await Future.delayed(Duration(seconds: 5));
+      var userApi = await http.get("https://api.github.com/users/"+input);
+      User usr = User.fromJSON(json.decode(userApi.body));
       this.setState(() {
         this.loading = false;
       });
-      Navigator.pushNamed(context, "home");
+      Navigator.pushNamed(context, "home", arguments: usr);
     }
   }
 
