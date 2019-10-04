@@ -14,10 +14,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User user = ModalRoute
-      .of(context)
-      .settings
-      .arguments;
+    User user = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       body: Container(
@@ -88,15 +85,20 @@ class Home extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         GestureDetector(
-                          child: Container(
-                            padding: EdgeInsets.all(10.0),
-                            child: Card(
-                              title: "Repositories",
-                              icon: Icons.folder_open,
-                              link: ""
+                          child: Hero(
+                            tag: "repos",
+                            child: Container(
+                              padding: EdgeInsets.all(10.0),
+                              child: Card(
+                                title: "Repositories",
+                                icon: Icons.folder_open,
+                                link: ""
+                              ),
                             ),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, "repositories");
+                          },
                         ),
                         GestureDetector(
                           child: Container(
