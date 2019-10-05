@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:github/screens/home.dart';
-import 'package:github/screens/login.dart';
+import 'app/app.dart';
+import 'app/screens/login.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Ubuntu'),
       home: Login(),
       routes: {
-        "home": (context) => Home(),
+        "app": (context) => App(),
       },
       debugShowCheckedModeBanner: false,
     );

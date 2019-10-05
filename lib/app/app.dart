@@ -2,15 +2,15 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../models/User.dart';
+import 'models/User.dart';
+import 'configs/configs.dart';
 
-class Home extends StatefulWidget {
+class App extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _AppState createState() => _AppState();
 }
 
-class _HomeState extends State<Home> {
-  final Color mainColor = Color(0xff262626);
+class _AppState extends State<App> {
   final Color secondaryColor = Colors.white;
   GlobalKey _bottomNavigationKey = GlobalKey();
   PageController _pageController = PageController(initialPage: 2);
@@ -29,38 +29,37 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       body: Container(
-        color: this.mainColor,
         child: PageView(
           controller: _pageController,
           scrollDirection: Axis.horizontal,
           onPageChanged: updatePage,
           children: <Widget>[
             Container(
-              color: Color(0xfff1f1f1),
+              color: colors["background"],
               child: Center(
                 child: Text("1")
               ),
             ),
             Container(
-              color: Color(0xfff1f1f1),
+              color: colors["background"],
               child: Center(
                 child: Text("2")
               ),
             ),
             Container(
-              color: Color(0xfff1f1f1),
+              color: colors["background"],
               child: Center(
                 child: Text("3")
               ),
             ),
             Container(
-              color: Color(0xfff1f1f1),
+              color: colors["background"],
               child: Center(
                 child: Text("4")
               ),
             ),
             Container(
-              color: Color(0xfff1f1f1),
+              color: colors["background"],
               child: Center(
                 child: Text("5")
               ),
@@ -79,9 +78,9 @@ class _HomeState extends State<Home> {
           Icon(Icons.people_outline, size: 30),
           Icon(Icons.person_pin, size: 30),
         ],
-        color: Colors.white,
-        buttonBackgroundColor: Colors.white,
-        backgroundColor: Color(0xfff1f1f1),
+        color: colors["secondary"],
+        buttonBackgroundColor: colors["secondary"],
+        backgroundColor: colors["background"],
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 600),
         onTap: (index) {

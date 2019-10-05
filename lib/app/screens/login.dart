@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-// import 'dart:async';
 import 'package:http/http.dart' as http;
 import '../models/User.dart';
+import '../configs/configs.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -11,9 +11,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
-  Color mainColor = Color(0xff262626);
-  Color secondaryColor = Colors.white;
   final textController = TextEditingController();
   bool loading = false;
 
@@ -28,7 +25,7 @@ class _LoginState extends State<Login> {
       this.setState(() {
         this.loading = false;
       });
-      Navigator.pushNamed(context, "home", arguments: usr);
+      Navigator.pushNamed(context, "app", arguments: usr);
     }
   }
 
@@ -38,13 +35,13 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
       body: Container(
-        color: this.secondaryColor,
+        color: colors["secondary"],
         child: Stack(
           children: <Widget>[
             Container(
               width: size.width,
               height: size.height * 0.25,
-              color: this.secondaryColor,
+              color: colors["secondary"],
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -54,7 +51,7 @@ class _LoginState extends State<Login> {
                     style: TextStyle(
                       fontSize: 45.0,
                       fontWeight: FontWeight.w900,
-                      color: this.mainColor,
+                      color: colors["primary"],
                     ),
                   ),
                 ],
@@ -68,7 +65,7 @@ class _LoginState extends State<Login> {
                   padding: EdgeInsets.fromLTRB(30.0, 0, 30.0, 0),
                   width: size.width,
                   height: size.height * 0.80,
-                  color: this.mainColor,
+                  color: colors["primary"],
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,16 +74,16 @@ class _LoginState extends State<Login> {
                         controller: this.textController,
                         maxLines: 1,
                         autocorrect: false,
-                        cursorColor: this.secondaryColor,
-                        style: TextStyle(color: this.secondaryColor),
+                        cursorColor: colors["secondary"],
+                        style: TextStyle(color: colors["secondary"]),
                         decoration: InputDecoration(
                           labelText: "Username",
                           labelStyle: TextStyle(
                             fontSize: 18.0,
-                            color: this.secondaryColor,
+                            color: colors["secondary"],
                           ),
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: this.secondaryColor)),
-                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: this.secondaryColor)),
+                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: colors["secondary"])),
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colors["secondary"])),
                         ),
                       ),
                       Container(
@@ -122,12 +119,12 @@ class _LoginState extends State<Login> {
                             "Searching...",
                             style: TextStyle(
                               fontSize: 25.0,
-                              color: this.secondaryColor,
+                              color: colors["secondary"],
                             ),
                           ),
                         ),
                         CircularProgressIndicator(
-                          valueColor: new AlwaysStoppedAnimation<Color>(this.secondaryColor),
+                          valueColor: new AlwaysStoppedAnimation<Color>(colors["secondary"]),
                         )
                       ],
                     ),
