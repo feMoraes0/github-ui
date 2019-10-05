@@ -1,8 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'models/User.dart';
+import 'package:github/app/screens/home.dart';
 import 'configs/configs.dart';
 
 class App extends StatefulWidget {
@@ -20,12 +19,11 @@ class _AppState extends State<App> {
     setState(() {
       this.page = index;
     });
-    Future.delayed(Duration(milliseconds: 600), () => _pageController.jumpToPage(index));
+    Future.delayed(Duration(milliseconds: 100), () => _pageController.jumpToPage(index));
   }
 
   @override
   Widget build(BuildContext context) {
-    User user = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       body: Container(
@@ -46,12 +44,7 @@ class _AppState extends State<App> {
                 child: Text("2")
               ),
             ),
-            Container(
-              color: colors["background"],
-              child: Center(
-                child: Text("3")
-              ),
-            ),
+            Home(),
             Container(
               color: colors["background"],
               child: Center(
@@ -82,7 +75,7 @@ class _AppState extends State<App> {
         buttonBackgroundColor: colors["secondary"],
         backgroundColor: colors["background"],
         animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 600),
+        animationDuration: Duration(milliseconds: 400),
         onTap: (index) {
           updatePage(index);
         },
