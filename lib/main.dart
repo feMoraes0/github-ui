@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github/screens/home.dart';
 import 'package:github/screens/login.dart';
-import 'package:github/screens/repositories.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +12,6 @@ class MyApp extends StatelessWidget {
       home: Login(),
       routes: {
         "home": (context) => Home(),
-        "repositories": (context) => Repositories(),
       },
       debugShowCheckedModeBanner: false,
     );
