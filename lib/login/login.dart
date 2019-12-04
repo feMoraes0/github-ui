@@ -10,26 +10,34 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 15.0),
+        padding: const EdgeInsets.symmetric(
+          vertical: 30.0,
+          horizontal: 15.0,
+        ),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 38.0),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 38.0,
+                ),
                 child: Text(
                   "GitHub",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: primaryColor,
-                      fontSize: 50.0,
-                      fontWeight: FontWeight.bold),
+                    color: primaryColor,
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               TextField(
-                style: TextStyle(color: primaryColor, fontSize: 20.0),
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 20.0,
+                ),
                 cursorColor: primaryColor,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -40,13 +48,19 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              RaisedButton(
-                onPressed: () {},
-                child: Text(
+              Container(
+                height: 57.0,
+                margin: const EdgeInsets.only(top: 15.0),
+                child: RaisedButton(
+                  onPressed: () {},
+                  child: Text(
                   "Enter",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 23.0,
+                    color: Colors.white,
                   ),
+                ),
                 ),
               )
             ],
