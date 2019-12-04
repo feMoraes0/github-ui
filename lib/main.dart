@@ -16,22 +16,32 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.black,
+              color: Color(0xff484848),
             ),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.greenAccent,
+            ),
+          )
         ),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         fontFamily: 'Ubuntu',
         primaryColor: Colors.white,
-        buttonColor: Colors.lightGreen,
+        buttonColor: Colors.green,
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.white,
             ),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.greenAccent,
+            ),
+          )
         ),
       ),
       home: Login(),
