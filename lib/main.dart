@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github/home/home.dart';
 import 'package:github/login/login.dart';
 
 void main() => runApp(MyApp());
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
           )
         ),
       ),
+      routes: {
+        'home': (context) => Home(),
+      },
       home: Login(),
     );
   }

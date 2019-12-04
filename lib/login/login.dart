@@ -52,7 +52,9 @@ class _LoginState extends State<Login> {
                 height: 57.0,
                 margin: const EdgeInsets.only(top: 15.0),
                 child: RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'home');
+                  },
                   child: Text(
                   "Enter",
                   textAlign: TextAlign.center,
