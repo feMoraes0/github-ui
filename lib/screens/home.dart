@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:github/components/repository_container.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
@@ -10,31 +11,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final String url = 'https://api.github.com/users/femoraes0';
-  Map<String, dynamic> data;
-  List repositories = [];
-
-  @override
-  void initState() {
-//    this.getData();
-    super.initState();
-  }
 
   Future<Map> getUserData() async {
     dynamic response = await http.get(this.url);
     return json.decode(response.body);
   }
 
-//  void getData() async {
-//    dynamic response = await http.get(this.url);
-//    dynamic jsonData = json.decode(response.body);
-//    setState(() {
-//      this.data = jsonData;
-//    });
-//    response = await http.get(jsonData['repos_url']);
-//    setState(() {
-//      this.repositories = json.decode(response.body);
-//    });
-//  }
+  Future<List> getRepositories(String url) async {
+    dynamic response = await http.get(url);
+    return json.decode(response.body);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,117 +177,62 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 20.0),
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Text(
-                                  'Repositories',
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
-                              ),
-//                              ListView.builder(
-//                                shrinkWrap: true,
-//                                physics: const NeverScrollableScrollPhysics(),
-//                                itemCount: this.repositories.length,
-//                                itemBuilder: (context, index) {
-//                                  Map element = this.repositories[index];
-//                                  return Container(
-//                                    padding: const EdgeInsets.symmetric(
-//                                      vertical: 10.0,
-//                                    ),
-//                                    child: Column(
-//                                      crossAxisAlignment:
-//                                          CrossAxisAlignment.start,
-//                                      children: <Widget>[
-//                                        Text(
-//                                          element['name'],
-//                                          style: TextStyle(
-//                                            color: Colors.blue,
-//                                            fontSize: 18.0,
-//                                          ),
-//                                        ),
-//                                        Padding(
-//                                          padding: const EdgeInsets.symmetric(
-//                                            vertical: 8.0,
-//                                          ),
-//                                          child: Text(
-//                                            element['description'] ?? '',
-//                                            style: TextStyle(
-//                                              color: Colors.white,
-//                                              fontSize: 15.0,
-//                                            ),
-//                                          ),
-//                                        ),
-//                                        Row(
-//                                          children: <Widget>[
-//                                            Container(
-//                                              margin: const EdgeInsets.only(
-//                                                right: 10.0,
-//                                              ),
-//                                              child: Text(
-//                                                element['language'],
-//                                                style: TextStyle(
-//                                                  fontSize: 15.0,
-//                                                  color: Colors.white,
-//                                                ),
-//                                              ),
-//                                            ),
-//                                            Icon(
-//                                              Icons.star,
-//                                              size: 15.0,
-//                                              color: Colors.white,
-//                                            ),
-//                                            Container(
-//                                              margin: const EdgeInsets.only(
-//                                                left: 5.0,
-//                                                right: 10.0,
-//                                              ),
-//                                              child: Text(
-//                                                element['stargazers_count']
-//                                                    .toString(),
-//                                                style: TextStyle(
-//                                                  fontSize: 15.0,
-//                                                  color: Colors.white,
-//                                                ),
-//                                              ),
-//                                            ),
-//                                            Icon(
-//                                              Icons.verified_user,
-//                                              size: 15.0,
-//                                              color: Colors.white,
-//                                            ),
-//                                            Container(
-//                                              margin: const EdgeInsets.only(
-//                                                left: 5.0,
-//                                                right: 10.0,
-//                                              ),
-//                                              child: Text(
-//                                                element['forks'].toString(),
-//                                                style: TextStyle(
-//                                                  fontSize: 15.0,
-//                                                  color: Colors.white,
-//                                                ),
-//                                              ),
-//                                            ),
-//                                          ],
-//                                        ),
-//                                      ],
-//                                    ),
-//                                  );
-//                                },
-//                              ),
-                            ],
-                          ),
-                        ),
+                        FutureBuilder(
+                            future: this.getRepositories(
+                              snapshot.data['repos_url'],
+                            ),
+                            builder: (context, snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.done:
+                                  print(snapshot.data);
+                                  return Container(
+                                    margin: const EdgeInsets.only(top: 20.0),
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 5.0),
+                                          child: Text(
+                                            'Repositories',
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                        ),
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: snapshot.data.length,
+                                          itemBuilder: (context, index) {
+                                            Map element = snapshot.data[index];
+                                            return RepositoryContainer(
+                                              name: element['name'],
+                                              description:
+                                                  element['description'],
+                                              stars: element['stargazers_count']
+                                                  .toString(),
+                                              forks:
+                                                  element['forks'].toString(),
+                                              language: element['language'],
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                case ConnectionState.waiting:
+                                default:
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                              }
+                            }),
                       ],
                     ),
                   ),
