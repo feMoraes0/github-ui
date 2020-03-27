@@ -1,3 +1,4 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 class RepositoryContainer extends StatelessWidget {
@@ -55,7 +56,7 @@ class RepositoryContainer extends StatelessWidget {
                 ),
               ),
               Icon(
-                Icons.star,
+                FeatherIcons.star,
                 size: 15.0,
                 color: Colors.white,
               ),
@@ -73,7 +74,7 @@ class RepositoryContainer extends StatelessWidget {
                 ),
               ),
               Icon(
-                Icons.verified_user,
+                FeatherIcons.gitBranch,
                 size: 15.0,
                 color: Colors.white,
               ),

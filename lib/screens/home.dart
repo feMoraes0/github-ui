@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:github/components/repository_container.dart';
 import 'package:http/http.dart' as http;
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,14 +31,14 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         leading: Icon(
-          Icons.add_circle_outline,
+          FeatherIcons.github,
           size: 28.0,
         ),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Icon(
-              Icons.search,
+              FeatherIcons.search,
               size: 28.0,
             ),
           ),
@@ -148,14 +149,14 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(
-                              Icons.location_on,
+                              FeatherIcons.mapPin,
                               color: Colors.white,
-                              size: 16.0,
+                              size: 15.0,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
                                 right: 8.0,
-                                left: 2.0,
+                                left: 3.0,
                               ),
                               child: Text(
                                 snapshot.data['location'],
@@ -178,61 +179,58 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         FutureBuilder(
-                            future: this.getRepositories(
-                              snapshot.data['repos_url'],
-                            ),
-                            builder: (context, snapshot) {
-                              switch (snapshot.connectionState) {
-                                case ConnectionState.done:
-                                  print(snapshot.data);
-                                  return Container(
-                                    margin: const EdgeInsets.only(top: 20.0),
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 5.0),
-                                          child: Text(
-                                            'Repositories',
-                                            style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w300,
-                                            ),
+                          future: this.getRepositories(
+                            snapshot.data['repos_url'],
+                          ),
+                          builder: (context, snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.done:
+                                print(snapshot.data);
+                                return Container(
+                                  margin: const EdgeInsets.only(top: 20.0),
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 5.0),
+                                        child: Text(
+                                          'Repositories',
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w300,
                                           ),
                                         ),
-                                        ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: snapshot.data.length,
-                                          itemBuilder: (context, index) {
-                                            Map element = snapshot.data[index];
-                                            return RepositoryContainer(
-                                              name: element['name'],
-                                              description:
-                                                  element['description'],
-                                              stars: element['stargazers_count']
-                                                  .toString(),
-                                              forks:
-                                                  element['forks'].toString(),
-                                              language: element['language'],
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                case ConnectionState.waiting:
-                                default:
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                              }
-                            }),
+                                      ),
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: snapshot.data.length,
+                                        itemBuilder: (context, index) {
+                                          Map element = snapshot.data[index];
+                                          return RepositoryContainer(
+                                            name: element['name'],
+                                            description: element['description'],
+                                            stars: element['stargazers_count']
+                                                .toString(),
+                                            forks: element['forks'].toString(),
+                                            language: element['language'],
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              case ConnectionState.waiting:
+                              default:
+                                return Container();
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ),
