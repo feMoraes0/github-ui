@@ -31,15 +31,17 @@ class RepositoryContainer extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 8.0,
+              vertical: 6.0,
             ),
-            child: Text(
-              this.description ?? '',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15.0,
-              ),
-            ),
+            child: (this.description != null)
+                ? Text(
+                    this.description ?? '',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
+                    ),
+                  )
+                : Container(),
           ),
           Row(
             children: <Widget>[
