@@ -1,7 +1,7 @@
 <h1 align="center">GitHub App</h1>
 
 <p align="center">
-  <img width="250" src="prints/print-001.png"/>
+  <img width="350" src="prints/print-001.png"/>
 </p>
 
 ## Useful Links
